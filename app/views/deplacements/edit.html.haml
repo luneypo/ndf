@@ -1,0 +1,5 @@
+%h1.text-center Modifié deplacement n°#{@deplacement.id} de #{current_user.first_name} #{current_user.name}
+.container
+  = form_for @deplacement, url: deplacement_path do |f|
+    = render "users/shared/error_messages", resource: @deplacement
+    = render :partial => "shared/deplacement_form", locals: { f: f }

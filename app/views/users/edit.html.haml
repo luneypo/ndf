@@ -1,0 +1,22 @@
+%h2
+  Edit #{@user.name.to_s.humanize}
+= form_for @user do |f|
+  = render "users/shared/error_messages", resource: @user
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name, autofocus: true, autocomplete: "name"
+  .field
+    = f.label :first_name
+    %br/
+    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+  .field
+    = f.label :login
+    %br/
+    = f.text_field :login, autofocus: true, autocomplete: "login"
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  .actions
+    = f.submit "Update"

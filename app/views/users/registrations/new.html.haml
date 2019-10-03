@@ -1,0 +1,24 @@
+%h2 Sign up
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = render "devise/shared/error_messages", resource: resource
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name, autofocus: true, autocomplete: "name"
+  .field
+    = f.label :first_name
+    %br/
+    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+  .field
+    = f.label :login
+    %br/
+    = f.text_field :login, autofocus: true, autocomplete: "login"
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  - @password=Devise.friendly_token(8)
+  = f.hidden_field :password, :value => @password
+  = f.hidden_field :password_confirmation, :value => @password
+  .actions
+    = f.submit "Sign up"

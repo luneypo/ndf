@@ -1,0 +1,24 @@
+.container
+  %h1 Users list
+  = link_to "nouveau", new_user_registration_path, class:"btn btn-primary"
+  %table
+    %thead
+      %th nom
+      %th prenom
+      %th login
+      %th email
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td
+            = user.name
+          %td
+            = user.first_name
+          %td
+            = user.login
+          %td
+            = user.email
+          %td
+            = link_to "Modifié", edit_user_path(user), class: "btn btn-info"
+            = link_to 'Supprimer', user_path(user), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
+            = link_to 'Voir listes de deplacement', user_path(user), class: 'btn btn-primary'

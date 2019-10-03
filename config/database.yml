@@ -1,0 +1,17 @@
+
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: d77sknpk
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: db_ndf_dev
+
+test:
+  <<: *default
+  database: db_ndf_test
+
