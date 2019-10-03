@@ -40,6 +40,9 @@ gem "haml-rails"
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'sassc-rails'
+gem "select2-rails"
+gem "roo", "~> 2.7.0"
+
 
 group :development, :test do
   gem "database_cleaner"

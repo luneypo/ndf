@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191003081824) do
+ActiveRecord::Schema.define(version: 20191003130821) do
 
   create_table "deplacements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -24,9 +24,7 @@ ActiveRecord::Schema.define(version: 20191003081824) do
     t.float    "parking",     limit: 24
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "diver_id"
     t.boolean  "valider"
-    t.index ["diver_id"], name: "index_deplacements_on_diver_id", using: :btree
     t.index ["user_id"], name: "index_deplacements_on_user_id", using: :btree
     t.index ["vehicule_id"], name: "index_deplacements_on_vehicule_id", using: :btree
   end
@@ -68,7 +66,6 @@ ActiveRecord::Schema.define(version: 20191003081824) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_foreign_key "deplacements", "divers"
   add_foreign_key "deplacements", "users"
   add_foreign_key "deplacements", "vehicules"
   add_foreign_key "divers", "deplacements"

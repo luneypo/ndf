@@ -15,5 +15,9 @@
 //= require jquery3
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require select2-full
 //= require_tree .
 
+$( "#dropdown" ).select2({
+    theme: "bootstrap"
+});

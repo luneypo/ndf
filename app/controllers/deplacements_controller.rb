@@ -16,6 +16,7 @@ class DeplacementsController < ApplicationController
 
   def create
     @deplacement=Deplacement.create!(deplacement_params)
+    @deplacement.valider=false
     if Vehicule.find(@deplacement.vehicule_id).tauxkm?
       @deplacement.tauxkm=Vehicule.find(@deplacement.vehicule_id).tauxkm
       @deplacement.gasoil=0
@@ -23,7 +24,6 @@ class DeplacementsController < ApplicationController
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
-    @deplacement.valider=false
     if @deplacement.save
       flash[:notice] = "Déplacement crée !"
       redirect_to user_path(current_user)
@@ -35,7 +35,6 @@ class DeplacementsController < ApplicationController
 
   def edit
     @deplacement=Deplacement.find(params[:id])
-    @deplacement.diver.build
   end
 
   def update
@@ -82,7 +81,10 @@ class DeplacementsController < ApplicationController
   private
 
   def deplacement_params
-    params.require(:deplacement).permit(:title, :tauxkm , :nombrekm , :gasoil, :peage , :parking, :divers , :infos, :vehicule_id, :date ,:user_id, :diver =>[:info,:montant])
+    params.require(:deplacement).permit(:title, :tauxkm , :nombrekm , :gasoil, :peage , :parking, :divers , :infos, :vehicule_id, :date ,:user_id,:diver_attributes=>[:id,:info,:montant])
+  end
+  def diver_params
+    params.require(:deplacement).permit()
   end
 
 end

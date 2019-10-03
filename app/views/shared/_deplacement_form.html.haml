@@ -1,3 +1,6 @@
+:javascript
+  $(document).ready(function() { $("#deplacement_user_id").select2(); });
+
 - unless @deplacement.diver
   = link_to "frais divers supplementaire?", deplacements_new_fraisdivers_path, class:'btn btn-primary'
 -if current_user.admin?
@@ -55,3 +58,5 @@
     = f.label 'frais divers : non'
 .actions
   = f.submit "Validé"
+
+

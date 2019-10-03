@@ -1,6 +1,7 @@
 .container
   %table.table
     %thead
+      %th
       %th salarié
       %th intitulé
       %th date
@@ -18,29 +19,26 @@
     %tbody
       - @deplacements.each do |deplacement|
         %tr
-          %td=deplacement.user.name
-          %td=deplacement.title
-          %td=deplacement.date
-          %td=deplacement.peage
-          %td=deplacement.parking
-          %td=deplacement.gasoil
-          %td=deplacement.tauxkm
-          %td=deplacement.nombrekm
-          %td= deplacement.tauxkm*deplacement.nombrekm
-          - if deplacement.diver
-            %td=deplacement.diver.info
-            %td=deplacement.diver.montant
-          - else
-            %td='/'
-            %td='/'
+          %td= link_to 'Supprimer', deplacement_path(deplacement), method: :delete
+          %td= deplacement.user.name
+          %td= deplacement.title
+          %td= deplacement.date
+          %td= deplacement.peage
+          %td= deplacement.parking
+          %td= deplacement.gasoil
+          %td= deplacement.tauxkm
+          %td= deplacement.nombrekm
+          %td= deplacement.tauxkm*deplacement.nombrekm if deplacement.tauxkm
+          %td=deplacement.diver.info if deplacement.diver
+          %td=deplacement.diver.montant if deplacement.diver
           %td=deplacement.total
-          - if deplacement.valider== true
+          - if deplacement.valider == true
             %td='oui'
           - else
             %td='non'
           %td
             = link_to 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info'
-            - if deplacement.valider== false
+            - if deplacement.valider == false
               = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
               - if current_user.admin?
                 = link_to 'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'

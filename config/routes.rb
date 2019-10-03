@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'users_import/new'
+
+  get 'users_import/create'
+
   # home pages
 
   root 'pages#home'
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
   }
 
   resources :users, except: [:create,:new]
+  resources :users_import, only: [:new, :create]
 
 
   #deplacement routes

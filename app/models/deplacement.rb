@@ -22,21 +22,22 @@
 class Deplacement < ApplicationRecord
   belongs_to :user
   belongs_to :vehicule
-  has_one :diver
+  has_one :diver, dependent: :destroy
   accepts_nested_attributes_for :diver
 
   validates :title, presence: true
   validates :date, presence: true
 
   def total
+    @total=0
     if tauxkm?
-      @total=tauxkm*nombrekm
+      @total+=tauxkm*nombrekm
     else
-      @total=gasoil
+      @total+=gasoil
     end
     unless diver.nil?
-      @total=@total+diver.montant
+      @total+=diver.montant
     end
-    @total=@total+peage+parking
+    @total+=peage+parking
   end
 end
