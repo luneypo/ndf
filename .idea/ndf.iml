@@ -61,6 +61,8 @@
     <orderEntry type="library" scope="PROVIDED" name="faker (v1.2.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.11.1, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="graphiql-rails (v1.7.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="graphql (v1.9.12, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="haml (v5.1.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="haml-rails (v1.0.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="html2haml (v2.2.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
@@ -93,11 +95,13 @@
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v1.6.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="responders (v3.0.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="roo (v2.7.1, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="roo-xls (v1.2.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.8.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.8.4, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.8.1, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v3.8.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.8.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-ole (v1.2.12.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby_parser (v3.14.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v1.3.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass (v3.7.4, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
@@ -108,6 +112,7 @@
     <orderEntry type="library" scope="PROVIDED" name="select2-rails (v4.0.3, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v3.142.4, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sexp_processor (v4.13.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="spreadsheet (v1.2.4, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spring (v2.1.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spring-watcher-listen (v2.0.1, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v3.7.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />

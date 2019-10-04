@@ -34,4 +34,19 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :first_name, presence: true
 
+  def self.import(file)
+    spreadsheet = Roo::Spreadsheet.open(file.path)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      user = find_by(id: row["id"]) || new
+      user.attributes = row.to_hash
+      user.temp=user.password=user.password_confirmation=Devise.friendly_token(8)
+      user.save!
+    end
+  end
+
+  def untemp
+    self.temp=nil
+  end
 end

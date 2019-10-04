@@ -1,7 +1,8 @@
 .container
   %h1 Users list
   = link_to "nouveau", new_user_registration_path, class:"btn btn-primary"
-  = link_to "import", new_users_import_path, class:"btn btn-primary"
+
+
   %table
     %thead
       %th nom
@@ -23,3 +24,7 @@
             = link_to "Modifié", edit_user_path(user), class: "btn btn-info"
             = link_to 'Supprimer', user_path(user), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
             = link_to 'Voir listes de deplacement', user_path(user), class: 'btn btn-primary'
+  %h2 Import Products
+  = form_tag import_users_path, multipart: true do
+    = file_field_tag :file
+    = submit_tag "Import"

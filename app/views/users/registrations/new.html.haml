@@ -18,6 +18,7 @@
     %br/
     = f.email_field :email, autofocus: true, autocomplete: "email"
   - @password=Devise.friendly_token(8)
+  = f.hidden_field :temp, :value => @password
   = f.hidden_field :password, :value => @password
   = f.hidden_field :password_confirmation, :value => @password
   .actions

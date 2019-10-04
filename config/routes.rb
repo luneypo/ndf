@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  # if Rails.env.development?
+  #   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
+  # end
+
+  post "/graphql", to: "graphql#execute"
+
   get 'users_import/new'
 
   get 'users_import/create'
@@ -19,8 +29,11 @@ Rails.application.routes.draw do
   }
 
   resources :users, except: [:create,:new]
-  resources :users_import, only: [:new, :create]
-
+  resources :users do
+    collection do
+      post :import
+    end
+  end
 
   #deplacement routes
 

@@ -1,5 +1,9 @@
 %p
-  Welcome #{@first_name} #{@name}!
+  Welcome #{@user.name}!
 %p You can confirm your account email through the link below:
-%p mdp:#{@password}
+
 %p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+%p login:#{@user.login}
+-if @user.temp?
+  %p mdp:#{@user.temp}
+  %p changez le au plus vite, il ne vous sera pas recomuniquez

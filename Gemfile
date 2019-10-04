@@ -42,7 +42,8 @@ gem 'bootstrap-sass'
 gem 'sassc-rails'
 gem "select2-rails"
 gem "roo", "~> 2.7.0"
-
+gem "roo-xls"
+gem 'graphql'
 
 group :development, :test do
   gem "database_cleaner"
@@ -66,3 +67,4 @@ group :test do
   gem 'webrat', '0.7.1'
   gem 'factory_bot_rails'
 end
+gem 'graphiql-rails', group: :development

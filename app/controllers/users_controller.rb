@@ -39,6 +39,13 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
   end
+
+  def import
+    User.import(params[:file])
+
+    redirect_to users_path, notice: 'Products imported.'
+  end
+
 end
 
 private
