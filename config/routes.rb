@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :deplacements, except: [:show]
 
+  get 'deplacements/export/' => 'deplacements#export'
   get 'deplacements/:id/valider/' => 'deplacements#valider'
   get 'users/deplacements/:id/valider/' => 'deplacements#valider'
   get 'deplacements/new/fraisdivers' => 'deplacements#fraisdivers'

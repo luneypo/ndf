@@ -77,14 +77,19 @@ class DeplacementsController < ApplicationController
     @deplacement.build_diver
     render 'new'
   end
-
+  def export
+    @deplacements=Deplacement.all
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "file_name"   # Excluding ".pdf" extension.
+      end
+    end
+  end
   private
 
   def deplacement_params
     params.require(:deplacement).permit(:title, :tauxkm , :nombrekm , :gasoil, :peage , :parking, :divers , :infos, :vehicule_id, :date ,:user_id,:diver_attributes=>[:id,:info,:montant])
-  end
-  def diver_params
-    params.require(:deplacement).permit()
   end
 
 end

@@ -1,4 +1,5 @@
 class GraphqlController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]

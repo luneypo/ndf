@@ -44,6 +44,8 @@ gem "select2-rails"
 gem "roo", "~> 2.7.0"
 gem "roo-xls"
 gem 'graphql'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem "database_cleaner"
