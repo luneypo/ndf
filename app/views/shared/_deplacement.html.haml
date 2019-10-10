@@ -1,46 +1,56 @@
-.container
-  .float-right
-    = link_to 'export', deplacements_export_path
-  %table.table
-    %thead
-      %th
-      %th salarié
-      %th intitulé
-      %th date
-      %th peage
-      %th parking
-      %th gasoil
-      %th tauxkm
-      %th nombrekm
-      %th montantkm
-      %th autre infos
-      %th divers
-      %th Total
-      %th Validé ?
-      %th actions
-    %tbody
-      - @deplacements.each do |deplacement|
-        %tr
-          %td= link_to 'Supprimer', deplacement_path(deplacement), method: :delete
-          %td= deplacement.user.name
-          %td= deplacement.title
-          %td= deplacement.date
-          %td= deplacement.peage
-          %td= deplacement.parking
-          %td= deplacement.gasoil
-          %td= deplacement.tauxkm
-          %td= deplacement.nombrekm
-          %td= deplacement.tauxkm*deplacement.nombrekm if deplacement.tauxkm
-          %td=deplacement.diver.info if deplacement.diver
-          %td=deplacement.diver.montant if deplacement.diver
-          %td=deplacement.total
-          - if deplacement.valider == true
-            %td='oui'
-          - else
-            %td='non'
-          %td
-            = link_to 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info'
-            - if deplacement.valider == false
-              = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
-              - if current_user.admin?
-                = link_to 'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'
+.container-fluid
+  = form_tag( :remote => true )  do
+    %table.table
+      %thead
+        %th
+        %th{:scope => "col"} Validations
+        %th{:scope => "col"} salarié
+        %th{:scope => "col"} intitulé
+        %th{:scope => "col"} date
+        %th{:scope => "col"} peage
+        %th{:scope => "col"} parking
+        %th{:scope => "col"} gasoil
+        %th{:scope => "col"} tauxkm
+        %th{:scope => "col"} nombrekm
+        %th{:scope => "col"} montantkm
+        %th{:scope => "col"} autre infos
+        %th{:scope => "col"} divers
+        %th{:scope => "col"} Total
+        %th{:scope => "col"} export
+        %th{:scope => "col"} actions
+      %tbody
+        - @deplacements.each do |deplacement|
+          %tr
+            %td= link_to 'Supprimer', deplacement_path(deplacement), method: :delete
+            %td.text-center{:scope => "row"}
+              - if deplacement.valider
+                .text-success=fa_icon "check"
+              - else
+                .text-danger=fa_icon "times"
+            %td= deplacement.user.name
+            %td= deplacement.title
+            %td= deplacement.date
+            %td= deplacement.peage
+            %td= deplacement.parking
+            %td= deplacement.gasoil
+            %td= deplacement.tauxkm
+            %td= deplacement.nombrekm
+            %td= deplacement.tauxkm*deplacement.nombrekm if deplacement.tauxkm
+            %td= deplacement.diver.info if deplacement.diver
+            %td= deplacement.diver.montant if deplacement.diver
+            %td= deplacement.total
+            %td= check_box_tag "deplacement_ids[]", deplacement.id, false
+            %td
+              = link_to 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info'
+              - unless deplacement.valider
+                = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
+                - if current_user.admin?
+                  = link_to 'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'
+      = hidden_field_tag 'return_value', ''
+      = submit_tag "Export PDF",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :pdf) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}
+      = submit_tag "Export CSV",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :csv) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}
+
+:javascript
+  function changeFormat(format) {
+    $("#return_value").val(format);
+  }

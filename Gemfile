@@ -46,6 +46,9 @@ gem "roo-xls"
 gem 'graphql'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary-edge'
+gem "font-awesome-rails"
+
 
 group :development, :test do
   gem "database_cleaner"

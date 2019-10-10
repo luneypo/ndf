@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
-
-  # if Rails.env.development?
-  #   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
-  # end
-
   post "/graphql", to: "graphql#execute"
 
   get 'users_import/new'
@@ -35,13 +27,15 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/salaries', to: 'users#json'
+
+
   #deplacement routes
 
   resources :deplacements, except: [:show]
 
-  get 'deplacements/export/' => 'deplacements#export'
   get 'deplacements/:id/valider/' => 'deplacements#valider'
   get 'users/deplacements/:id/valider/' => 'deplacements#valider'
   get 'deplacements/new/fraisdivers' => 'deplacements#fraisdivers'
-
+  post 'deplacements/pdf/', to: 'deplacements#export', as: 'deplacements_export'
 end

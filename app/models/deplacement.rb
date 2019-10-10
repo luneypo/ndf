@@ -27,6 +27,12 @@ class Deplacement < ApplicationRecord
 
   validates :title, presence: true
   validates :date, presence: true
+  validates :vehicule, presence: true
+  validates :nombrekm,numericality: { greater_than_or_equal_to: 0 }
+  validates :gasoil,numericality: { greater_than_or_equal_to: 0 }
+  validates :peage,numericality: { greater_than_or_equal_to: 0 }
+  validates :parking,numericality: { greater_than_or_equal_to: 0 }
+
 
   def total
     @total=0
@@ -39,5 +45,19 @@ class Deplacement < ApplicationRecord
       @total+=diver.montant
     end
     @total+=peage+parking
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      columns = %w(name gasoil peage parking montantkm)
+      csv << columns.map(&:humanize)
+      all.each do |deplacement|
+        csv << deplacement.attributes.values_at(*columns)
+      end
+    end
+  end
+
+  def montantkm
+    tauxkm*nombrekm
   end
 end

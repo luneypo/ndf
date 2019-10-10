@@ -60,6 +60,7 @@
     <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v5.1.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faker (v1.2.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.11.1, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="font-awesome-rails (v4.7.0.5, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="graphiql-rails (v1.7.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="graphql (v1.9.12, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
@@ -134,6 +135,7 @@
     <orderEntry type="library" scope="PROVIDED" name="wicked_pdf (v1.4.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="will_paginate (v3.1.8, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="wkhtmltopdf-binary (v0.12.4, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="wkhtmltopdf-binary-edge (v0.12.5.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="xpath (v3.2.0, RVM: ruby-2.5.0 [notes]) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">

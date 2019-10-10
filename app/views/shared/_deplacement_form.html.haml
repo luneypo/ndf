@@ -1,32 +1,38 @@
 :javascript
   $(document).ready(function() { $("#deplacement_user_id").select2(); });
-
 - unless @deplacement.diver
   = link_to "frais divers supplementaire?", deplacements_new_fraisdivers_path, class:'btn btn-primary'
+  .field.form-group
+    = f.label 'frais divers : non'
+-else
+  = link_to "pas de frais divers supplementaire?", new_deplacement_path, class:'btn btn-primary'
+  .field.form-group
+    = f.label 'frais divers : oui'
 -if current_user.admin?
-  .field
+  .field.form-group
   = f.label :user_id
   %br/
   = f.collection_select :user_id, User.all, :id, :name
 -else
   = f.hidden_field :user_id, :value => current_user.id
-.field
-  = f.label :Intitulé
+.field.form-group
+  = f.label :Intitulé,class: 'form-label'
   %br/
-  = f.text_field :title, autofocus: true, autocomplete: "title"
-.field
+  = f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control"
+.field.form-group
   = f.label :date
   %br/
   = f.date_select :date, autofocus: true, autocomplete: "date"
-.field
-  = f.label :vehicule_id
-  %br/
-  = f.collection_select :vehicule_id, Vehicule.all, :id, :immatriculation
 
+.field.form-group
+  = f.label :vehicule_id,class: 'form-label'
+  %br/
+  = f.collection_select :vehicule_id, Vehicule.all, :id, :immatriculation, {:include_blank => true}, {class: "form-control"}
+#newform
 .field
   = f.label :nombrekm
   %br/
-  = f.number_field :nombrekm, autofocus: true, autocomplete: "parking"
+  = f.number_field :nombrekm, autofocus: true
 .field
   = f.label :gasoil
   %br/
@@ -41,21 +47,21 @@
   %br/
   = f.number_field :parking, autofocus: true, autocomplete: "parking"
 - if @deplacement.diver
-  .field
-    = f.label :diver
+  .field.form-group
+    = f.label :diver,class: 'form-label'
     %br/
     = f.fields_for :diver do |d|
-      .field
-      = d.label :info
+      .field.form-group
+      = d.label :info,class: 'col-form-label'
       %br/
-      = d.text_field :info
-      .field
-      = d.label :montant
+      = d.text_field :info,class: "form-control"
+      .field.form-group
+      = d.label :montant,class: 'col-form-label'
       %br/
-      = d.text_field :montant
+      = d.text_field :montant,class: "form-control"
+
 - else
-  .field
-    = f.label 'frais divers : non'
+
 .actions
   = f.submit "Validé"
 

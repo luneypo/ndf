@@ -46,6 +46,10 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: 'Products imported.'
   end
 
+  def json
+    @user=User.find_by login:params[:login]
+    render json: @user.as_json(except: [:id, :created_at, :age, :updated_at, :temp])
+  end
 end
 
 private

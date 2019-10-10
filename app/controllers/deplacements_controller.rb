@@ -6,16 +6,40 @@ class DeplacementsController < ApplicationController
     @deplacements=Deplacement.all
   end
 
-  # def show
-  #   @deplacement=Deplacement.find(params[:id])
-  # end
+  def export
+    if params[:commit] == 'Export PDF'
+      @title='Export en pdf'
+      @deplacements=Deplacement.where(id:params[:deplacement_ids])
+
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "Export de deplacmeents",
+                 page_size: 'A4',
+                 template: "deplacements/export_pdf.html.haml",
+                 layout: "pdf.html",
+                 lowquality: true,
+                 zoom: 1,
+                 dpi: 75
+        end
+      end
+
+    elsif params[:commit] == 'Export CSV'
+      @title='Export en pdf'
+      @deplacements=Deplacement.where(id:params[:deplacement_ids])
+      respond_to do |format|
+        format.html
+        format.csv { send_data @deplacements.to_csv, filename: "Export-compta-du-#{Date.today}.csv" }
+      end
+    end
+  end
 
   def new
     @deplacement=Deplacement.new
   end
 
   def create
-    @deplacement=Deplacement.create!(deplacement_params)
+    @deplacement=Deplacement.create(deplacement_params)
     @deplacement.valider=false
     if Vehicule.find(@deplacement.vehicule_id).tauxkm?
       @deplacement.tauxkm=Vehicule.find(@deplacement.vehicule_id).tauxkm
@@ -77,15 +101,7 @@ class DeplacementsController < ApplicationController
     @deplacement.build_diver
     render 'new'
   end
-  def export
-    @deplacements=Deplacement.all
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "file_name"   # Excluding ".pdf" extension.
-      end
-    end
-  end
+
   private
 
   def deplacement_params
