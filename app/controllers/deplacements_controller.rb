@@ -21,6 +21,23 @@ class DeplacementsController < ApplicationController
                  lowquality: true,
                  zoom: 1,
                  dpi: 75
+
+
+          pdf= WickedPdf.new.pdf_from_string(
+              render_to_string('deplacements/export_pdf.html.haml', layout: 'layouts/pdf.html.haml')
+          )
+
+          save_path = Rails.root.join('public/export_pdf',"exportpdf-#{params[:deplacement_ids].first}.pdf")
+          @deplacements.each do |deplacement|
+            deplacement.export="pdf/#{params[:deplacement_ids].first}"
+            deplacement.filetype='pdf'
+            deplacement.save
+          end
+          File.open(save_path, 'wb') do |file|
+            file << pdf
+          end
+
+
         end
       end
 
@@ -29,8 +46,24 @@ class DeplacementsController < ApplicationController
       @deplacements=Deplacement.where(id:params[:deplacement_ids])
       respond_to do |format|
         format.html
-        format.csv { send_data @deplacements.to_csv, filename: "Export-compta-du-#{Date.today}.csv" }
+        format.csv { send_data @deplacements.to_csv, filename: "Export-compta-du-#{Date.today}-#{params[:deplacement_ids].first}.csv" }
       end
+
+      save_path = Rails.root.join('public/export_csv',"Export-compta-#{params[:deplacement_ids].first}.csv")
+      @deplacements.each do |deplacement|
+        deplacement.export="#{params[:deplacement_ids].first}"
+        deplacement.filetype='csv'
+        deplacement.save
+      end
+      attributes = %w(date fullname credit_salarie debit_carburant debit_peage debit_parking debit_divers debit_kil TVA)
+      CSV.open(save_path, 'wb') do |csv|
+        csv << attributes
+
+        @deplacements.each do |user|
+          csv << attributes.map{ |attr| user.send(attr) }
+        end
+      end
+
     end
   end
 
@@ -101,6 +134,7 @@ class DeplacementsController < ApplicationController
     @deplacement.build_diver
     render 'new'
   end
+
 
   private
 

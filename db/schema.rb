@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191003144830) do
+ActiveRecord::Schema.define(version: 20191011132947) do
 
   create_table "deplacements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20191003144830) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.boolean  "valider"
+    t.string   "export"
+    t.string   "filetype"
     t.index ["user_id"], name: "index_deplacements_on_user_id", using: :btree
     t.index ["vehicule_id"], name: "index_deplacements_on_vehicule_id", using: :btree
   end

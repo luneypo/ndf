@@ -48,16 +48,52 @@ class Deplacement < ApplicationRecord
   end
 
   def self.to_csv
-    CSV.generate do |csv|
-      columns = %w(name gasoil peage parking montantkm)
-      csv << columns.map(&:humanize)
-      all.each do |deplacement|
-        csv << deplacement.attributes.values_at(*columns)
+    attributes = %w(date fullname credit_salarie debit_carburant debit_peage debit_parking debit_divers debit_kil TVA)
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
       end
+    end
+
+  end
+
+  def fullname
+    "#{user.name} #{user.first_name}"
+  end
+
+  def credit_salarie
+    total=gasoil+peage+parking+(tauxkm*nombrekm)
+    if diver
+      total+=diver.montant
+    end
+    total
+  end
+
+  def debit_carburant
+    (gasoil*80)/100
+  end
+
+  def debit_peage
+    (peage*80)/100
+  end
+
+  def debit_parking
+    (parking*80)/100
+  end
+
+  def debit_divers
+    if diver
+      diver.montant
     end
   end
 
-  def montantkm
+  def debit_kil
     tauxkm*nombrekm
+  end
+
+  def TVA
+    (gasoil*20+parking*20+peage*20)/100
   end
 end

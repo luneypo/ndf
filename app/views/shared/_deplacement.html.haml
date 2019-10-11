@@ -2,8 +2,9 @@
   = form_tag( :remote => true )  do
     %table.table
       %thead
-        %th
+        %th{:scope => "col"} Validé/supprimé
         %th{:scope => "col"} Validations
+        %th{:scope => "col"} export
         %th{:scope => "col"} salarié
         %th{:scope => "col"} intitulé
         %th{:scope => "col"} date
@@ -16,17 +17,29 @@
         %th{:scope => "col"} autre infos
         %th{:scope => "col"} divers
         %th{:scope => "col"} Total
-        %th{:scope => "col"} export
-        %th{:scope => "col"} actions
+        %th{:scope => "col"} Modifié
       %tbody
         - @deplacements.each do |deplacement|
+
           %tr
-            %td= link_to 'Supprimer', deplacement_path(deplacement), method: :delete
+            %td
+              = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete
+              -#= link_to_unless(deplacement.valider,'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}){}
+              = link_to_if(current_user.admin?&&!deplacement.valider,'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'){}
             %td.text-center{:scope => "row"}
               - if deplacement.valider
                 .text-success=fa_icon "check"
               - else
                 .text-danger=fa_icon "times"
+            %td
+              = check_box_tag "deplacement_ids[]", deplacement.id, false
+              -#- if deplacement.valider
+              -#  - unless deplacement.exporté
+              -#    = check_box_tag "deplacement_ids[]", deplacement.id, false
+              -#  -else
+              -#    .text-success= fa_icon "check-square"
+              -#- else
+              -#  .text-danger.font-italic= 'en attente'
             %td= deplacement.user.name
             %td= deplacement.title
             %td= deplacement.date
@@ -39,13 +52,7 @@
             %td= deplacement.diver.info if deplacement.diver
             %td= deplacement.diver.montant if deplacement.diver
             %td= deplacement.total
-            %td= check_box_tag "deplacement_ids[]", deplacement.id, false
-            %td
-              = link_to 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info'
-              - unless deplacement.valider
-                = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
-                - if current_user.admin?
-                  = link_to 'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'
+            %td= render partial: "shared/show_deplacement_link", locals: {deplacement: deplacement}
       = hidden_field_tag 'return_value', ''
       = submit_tag "Export PDF",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :pdf) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}
       = submit_tag "Export CSV",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :csv) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}

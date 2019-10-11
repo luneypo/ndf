@@ -37,5 +37,8 @@ Rails.application.routes.draw do
   get 'deplacements/:id/valider/' => 'deplacements#valider'
   get 'users/deplacements/:id/valider/' => 'deplacements#valider'
   get 'deplacements/new/fraisdivers' => 'deplacements#fraisdivers'
-  post 'deplacements/pdf/', to: 'deplacements#export', as: 'deplacements_export'
+  post 'deplacements/export/', to: 'deplacements#export', as: 'deplacements_export'
+
+  get 'pdf/:id' => 'pages#pdf', as: 'pdf'
+  get 'csv/:id' => 'pages#csv', as: 'csv'
 end
