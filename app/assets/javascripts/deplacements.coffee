@@ -2,11 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-  $(".form_vehicule").on "change", ->
+  $("select#deplacement_vehicule_id").change ->
     $.ajax
-      url: "/deplacements/new"
-      type: "GET"
-      dataType: "script"
-      data:
-        taux_km: $(this).attr("data-taux-km")
-
+    url: "/deplacements/getvehicule"
+    type: "GET"
+    dataType: "script"
+    data:
+      vehicule_id: $("#deplacement_vehicule_id option:selected").val()

@@ -74,10 +74,15 @@ class DeplacementsController < ApplicationController
   def create
     @deplacement=Deplacement.create(deplacement_params)
     @deplacement.valider=false
-    if Vehicule.find(@deplacement.vehicule_id).tauxkm?
-      @deplacement.tauxkm=Vehicule.find(@deplacement.vehicule_id).tauxkm
+    @deplacement.peage=params[:peage]
+    @deplacement.parking=params[:parking]
+    tauxkm=Vehicule.find(params[:deplacement][:vehicule_id]).tauxkm
+    if tauxkm
+      @deplacement.tauxkm=tauxkm
       @deplacement.gasoil=0
+      @deplacement.nombrekm=params[:nombrekm]
     else
+      @deplacement.gasoil=params[:gasoil]
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
@@ -97,10 +102,15 @@ class DeplacementsController < ApplicationController
   def update
     @deplacement=Deplacement.find(params[:id])
     @deplacement.update(deplacement_params)
-    if Vehicule.find(@deplacement.vehicule_id).tauxkm?
-      @deplacement.tauxkm=Vehicule.find(@deplacement.vehicule_id).tauxkm
+    @deplacement.peage=params[:peage]
+    @deplacement.parking=params[:parking]
+    tauxkm=Vehicule.find(params[:deplacement[:vehicule_id]])
+    if tauxkm
+      @deplacement.tauxkm=tauxkm
       @deplacement.gasoil=0
+      @deplacement.nombrekm=params[:nombrekm]
     else
+      @deplacement.gasoil=params[:gasoil]
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
@@ -135,11 +145,20 @@ class DeplacementsController < ApplicationController
     render 'new'
   end
 
+  def getvehicule
+    unless params[:deplacement][:vehicule_id].empty?
+      @tuture=Vehicule.find(params[:deplacement][:vehicule_id])
+    end
+    respond_to do |f|
+      f.html
+      f.js
+    end
+  end
 
   private
 
   def deplacement_params
-    params.require(:deplacement).permit(:title, :tauxkm , :nombrekm , :gasoil, :peage , :parking, :divers , :infos, :vehicule_id, :date ,:user_id,:diver_attributes=>[:id,:info,:montant])
+    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date ,:user_id,:diver_attributes=>[:id,:info,:montant])
   end
 
 end

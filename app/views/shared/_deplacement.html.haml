@@ -48,7 +48,7 @@
             %td= deplacement.gasoil
             %td= deplacement.tauxkm
             %td= deplacement.nombrekm
-            %td= deplacement.tauxkm*deplacement.nombrekm if deplacement.tauxkm
+            %td= deplacement.tauxkm * deplacement.nombrekm unless deplacement.tauxkm == 0
             %td= deplacement.diver.info if deplacement.diver
             %td= deplacement.diver.montant if deplacement.diver
             %td= deplacement.total

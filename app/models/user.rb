@@ -46,7 +46,4 @@ class User < ApplicationRecord
     end
   end
 
-  def untemp
-    self.temp=nil
-  end
 end

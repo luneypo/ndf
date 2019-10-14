@@ -28,18 +28,14 @@ class Deplacement < ApplicationRecord
   validates :title, presence: true
   validates :date, presence: true
   validates :vehicule, presence: true
-  validates :nombrekm,numericality: { greater_than_or_equal_to: 0 }
-  validates :gasoil,numericality: { greater_than_or_equal_to: 0 }
-  validates :peage,numericality: { greater_than_or_equal_to: 0 }
-  validates :parking,numericality: { greater_than_or_equal_to: 0 }
 
 
   def total
     @total=0
-    if tauxkm?
-      @total+=tauxkm*nombrekm
-    else
+    if tauxkm == 0
       @total+=gasoil
+    else
+      @total+=tauxkm*nombrekm
     end
     unless diver.nil?
       @total+=diver.montant

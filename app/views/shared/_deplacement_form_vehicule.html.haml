@@ -1,0 +1,18 @@
+-unless @tuture.nil?
+  .field
+    - if @tuture.tauxkm?
+      = label_tag :nombrekm
+      %br/
+      = number_field_tag :nombrekm
+    - else
+      = label_tag :gasoil
+      %br/
+      = number_field_tag :gasoil
+  .field
+    = label_tag :peage
+    %br/
+    = number_field_tag :peage
+  .field
+    = label_tag :parking
+    %br/
+    = number_field_tag :parking

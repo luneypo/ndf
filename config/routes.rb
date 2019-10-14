@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   resources :deplacements, except: [:show]
 
+  get 'deplacements/getvehicule' => 'deplacements#getvehicule'
   get 'deplacements/:id/valider/' => 'deplacements#valider'
   get 'users/deplacements/:id/valider/' => 'deplacements#valider'
   get 'deplacements/new/fraisdivers' => 'deplacements#fraisdivers'
