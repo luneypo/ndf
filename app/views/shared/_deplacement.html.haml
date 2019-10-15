@@ -53,9 +53,7 @@
             %td= deplacement.diver.montant if deplacement.diver
             %td= deplacement.total
             %td= render partial: "shared/show_deplacement_link", locals: {deplacement: deplacement}
-      = hidden_field_tag 'return_value', ''
-      = submit_tag "Export PDF",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :pdf) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}
-      = submit_tag "Export CSV",:formtarget => "_blank", onClick: "$(this).closest('form').attr('action', '#{ deplacements_export_path(format: :csv) }')", data: {confirm: 'Are you sure? you can only export once !',disable_with: false}
+      = render "shared/export_tag"
 
 :javascript
   function changeFormat(format) {

@@ -6,6 +6,20 @@ class UsersController < ApplicationController
     @users=User.all
   end
 
+  def new
+    @user=User.new
+  end
+
+  def create
+    @user.create!(user_params)
+    if @user.save
+      flash[:notice] = "User modifiée !"
+      render 'create'
+    else
+      flash[:alert] = "Une erreur est survenue!"
+    end
+  end
+
   def show
     @user=User.find(params[:id])
     @deplacements=Deplacement.where(params[:id])
@@ -33,7 +47,7 @@ class UsersController < ApplicationController
     unless current_user.id==@user.id
       @user.destroy!
       flash[:notice]= 'User supprimé.'
-      redirect_to users_path
+      render 'destroy'
     else
       flash[:alert]= 'Vous ne pouvez pas vous supprimer.'
       redirect_to users_path
@@ -55,5 +69,5 @@ end
 private
 
 def user_params
-  params.require(:user).permit(:nom, :email, :first_name, :login)
+  params.require(:user).permit(:name, :email, :first_name, :login)
 end

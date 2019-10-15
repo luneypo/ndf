@@ -1,6 +1,5 @@
-%h2
-  Edit #{@user.name.to_s.humanize}
-= form_for @user do |f|
+%h1 #{title} User
+= form_for @user, remote: true do |f|
   = render "users/shared/error_messages", resource: @user
   .field
     = f.label :name
@@ -18,5 +17,9 @@
     = f.label :email
     %br/
     = f.email_field :email, autofocus: true, autocomplete: "email"
+  - @password=Devise.friendly_token(8)
+  = f.hidden_field :temp, :value => @password
+  = f.hidden_field :password, :value => @password
+  = f.hidden_field :password_confirmation, :value => @password
   .actions
-    = f.submit "Update"
+    = f.submit "Submit"
