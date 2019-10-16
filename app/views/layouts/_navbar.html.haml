@@ -6,7 +6,6 @@
       - if user_signed_in?
         %li= link_to 'Profile', edit_user_registration_path
         %li= link_to 'Mes Deplacements',show_my_deplacements_path
-        %li= link_to 'Nouveau Deplacement',new_deplacement_path
         - if current_user.admin?
           %ul.nav.navbar-nav
             %li.dropdown

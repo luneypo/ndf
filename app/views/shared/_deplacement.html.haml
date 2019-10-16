@@ -21,9 +21,9 @@
       %tbody
         - @deplacements.each do |deplacement|
 
-          %tr
+          %tr{:id => "deplacement_#{deplacement.id}"}
             %td
-              = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete
+              = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, remote: true
               -#= link_to_unless(deplacement.valider,'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}){}
               = link_to_if(current_user.admin?&&!deplacement.valider,'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'){}
             %td.text-center{:scope => "row"}

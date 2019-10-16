@@ -132,7 +132,7 @@ class DeplacementsController < ApplicationController
     @deplacement=Deplacement.find(params[:id])
     @deplacement.destroy!
     flash[:notice]= 'Deplacement supprimé.'
-    redirect_back(fallback_location: deplacements_path)
+    render 'destroy'
   end
 
   def valider

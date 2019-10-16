@@ -1,0 +1,8 @@
+:javascript
+  $(document).ready(function() { $("#deplacement_user_id").select2(); });
+%h1 Nouveau deplacement
+= form_for @deplacement , url: deplacements_path do |f|
+  = render "users/shared/error_messages", resource: @deplacement
+  = render :partial => "deplacement_form", locals: { f: f }
+
+

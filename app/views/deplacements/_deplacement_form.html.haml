@@ -1,40 +1,41 @@
 :javascript
   $(document).ready(function() { $("#deplacement_user_id").select2(); });
-- unless @deplacement.diver
-  = link_to "frais divers supplementaire?", deplacements_fraisdivers_path, class:'btn btn-primary',remote: true
-  .field.form-group
-    = f.label 'frais divers : non'
--else
-  = link_to "pas de frais divers supplementaire?", new_deplacement_path, class:'btn btn-primary'
-  .field.form-group
-    = f.label 'frais divers : oui'
--if current_user.admin?
-  .field.form-group
-  = f.label :user_id
-  %br/
-  = f.collection_select :user_id, User.all, :id, :name
--else
-  = f.hidden_field :user_id, :value => current_user.id
-.field.form-group
-  = f.label :Intitulé,class: 'form-label'
-  %br/
-  = f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control"
-.field.form-group
-  = f.label :date
-  %br/
-  = f.date_select :date, autofocus: true, autocomplete: "date"
+.container-fluid
+  .row
+    .field.form-group.col-sm-4
+      = f.label :Intitulé,class: 'form-label'
+      %br/
+      = f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control"
+  .row
+    .col-sm-4
+      -if current_user.admin?
+        .field.form-group
+          = f.label :user_id
+          %br/
+          = f.collection_select :user_id, User.all, :id, :name
+      -else
+        = f.hidden_field :user_id, :value => current_user.id
+      .field.form-group
+        = f.label :date
+        %br/
+        = f.date_select :date, autofocus: true, autocomplete: "date"
 
-.field.form-group
-  = f.label :vehicule_id,class: 'form-label'
-  %br/
-  = f.collection_select :vehicule_id, Vehicule.all, :id, :immatriculation, {:include_blank => true}, { class: "form-control", :'data-remote' => true, :'data-url'=>"/deplacements/getvehicule" }
+    .col-sm-4
 
-#kmform.form-group
+      .field
+      = f.label :vehicule_id,class: 'form-label'
+      %br/
+      = f.collection_select :vehicule_id, Vehicule.all, :id, :immatriculation, {:include_blank => true}, { class: "form-control", :'data-remote' => true, :'data-url'=>"/deplacements/getvehicule" }
 
-#diverform.form-group
+      #kmform.form-group
 
+    .col-sm-4
+      = link_to "frais divers supplementaire?", deplacements_fraisdivers_path, class:'btn btn-primary',remote: true, id:'btndivers'
 
-.actions
-  = f.submit "Validé"
+      #diverform.form-group
+
+  .row
+    .actions
+      = f.submit "Validé"
 
 
