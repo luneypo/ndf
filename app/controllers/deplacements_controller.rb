@@ -123,6 +123,10 @@ class DeplacementsController < ApplicationController
     end
   end
 
+  def show_my_deplacements
+    @deplacements=Deplacement.where(user_id:current_user.id)
+  end
+
   def destroy
     @deplacements=User.all
     @deplacement=Deplacement.find(params[:id])
@@ -142,7 +146,10 @@ class DeplacementsController < ApplicationController
   def fraisdivers
     @deplacement=Deplacement.new
     @deplacement.build_diver
-    render 'new'
+    respond_to do |f|
+      f.html
+      f.js
+    end
   end
 
   def getvehicule

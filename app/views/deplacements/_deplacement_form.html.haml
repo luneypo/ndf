@@ -1,7 +1,7 @@
 :javascript
   $(document).ready(function() { $("#deplacement_user_id").select2(); });
 - unless @deplacement.diver
-  = link_to "frais divers supplementaire?", deplacements_new_fraisdivers_path, class:'btn btn-primary'
+  = link_to "frais divers supplementaire?", deplacements_fraisdivers_path, class:'btn btn-primary',remote: true
   .field.form-group
     = f.label 'frais divers : non'
 -else
@@ -31,19 +31,8 @@
 
 #kmform.form-group
 
-- if @deplacement.diver
-  .field.form-group
-    = f.label :diver,class: 'form-label'
-    %br/
-    = f.fields_for :diver do |d|
-      .field.form-group
-      = d.label :info,class: 'col-form-label'
-      %br/
-      = d.text_field :info,class: "form-control"
-      .field.form-group
-      = d.label :montant,class: 'col-form-label'
-      %br/
-      = d.text_field :montant,class: "form-control"
+#diverform.form-group
+
 
 .actions
   = f.submit "Validé"

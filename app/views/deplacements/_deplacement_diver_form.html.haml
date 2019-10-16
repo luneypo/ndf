@@ -1,0 +1,9 @@
+= fields_for :diver do |d|
+  .field.form-group
+  = d.label :info,class: 'col-form-label'
+  %br/
+  = d.text_field :info,class: "form-control"
+  .field.form-group
+  = d.label :montant,class: 'col-form-label'
+  %br/
+  = d.text_field :montant,class: "form-control"

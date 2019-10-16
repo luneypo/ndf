@@ -2,4 +2,4 @@
 .container
   = form_for @deplacement, url: deplacement_path do |f|
     = render "users/shared/error_messages", resource: @deplacement
-    = render :partial => "shared/deplacement_form", locals: { f: f }
+    = render :partial => "deplacement_form", locals: { f: f }

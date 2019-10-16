@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: [:show]
+  before_action :load_all_users
 
-  def index
-    @users=User.all
+  def show
+    respond_to do |format|
+      format.html {render 'index'}
+      format.json
+    end
   end
-
   def new
     @user=User.new
   end
@@ -20,11 +23,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user=User.find(params[:id])
-    @deplacements=Deplacement.where(params[:id])
-  end
-
   def edit
     @user=User.find(params[:id])
   end
@@ -34,15 +32,12 @@ class UsersController < ApplicationController
     @user.update(user_params)
     if @user.save
       flash[:notice] = "User modifiée !"
-      redirect_to users_path
     else
       flash[:alert] = "Une erreur est survenue!"
-      render 'edit'
     end
   end
 
   def destroy
-    @users=User.all
     @user=User.find(params[:id])
     unless current_user.id==@user.id
       @user.destroy!
@@ -67,6 +62,10 @@ class UsersController < ApplicationController
 end
 
 private
+
+def load_all_users
+  @users=User.all
+end
 
 def user_params
   params.require(:user).permit(:name, :email, :first_name, :login)

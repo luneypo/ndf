@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
   }
 
-  resources :users
+  resources :users, except: :show
   resources :users do
     collection do
       post :import
@@ -37,8 +37,10 @@ Rails.application.routes.draw do
   get 'deplacements/getvehicule' => 'deplacements#getvehicule'
   get 'deplacements/:id/valider/' => 'deplacements#valider'
   get 'users/deplacements/:id/valider/' => 'deplacements#valider'
-  get 'deplacements/new/fraisdivers' => 'deplacements#fraisdivers'
+  get 'deplacements/fraisdivers' => 'deplacements#fraisdivers'
   post 'deplacements/export/', to: 'deplacements#export', as: 'deplacements_export'
+  get 'deplacements/show/', to: 'deplacements#show_my_deplacements', as: 'show_my_deplacements'
+
 
   get 'pdf/:id' => 'pages#pdf', as: 'pdf'
   get 'csv/:id' => 'pages#csv', as: 'csv'

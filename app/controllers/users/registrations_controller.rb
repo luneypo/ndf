@@ -13,8 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    @users=User.all
     super
-
   end
 
   # GET /resource/edit
@@ -56,12 +56,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    root_path
+
+    respond_to do |format|
+      format.html
+      format.json
+      end
   end
 
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
-    super(resource)
+    respond_to do |format|
+      format.html
+      format.json
+      end
   end
 
   def require_no_authentication
