@@ -11,8 +11,8 @@
 #
 
 class Diver < ApplicationRecord
-  belongs_to :deplacement,optional: true
+  belongs_to :deplacement
 
-  # validates :info, presence: true
-  # validates :montant, presence: true
+  validates :info, presence: true
+  validates :montant, presence: true
 end

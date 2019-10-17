@@ -1,2 +1,2 @@
-$("#diverform").html('<%= j render "deplacement_diver_form"%>');
+$("#diverform").html('<%= j render partial:"deplacement_diver_form", locals:{deplacement:@deplacement}%>');
 $("#btndivers").hide()

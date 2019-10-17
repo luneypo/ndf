@@ -25,7 +25,7 @@
             %td
               = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, remote: true
               -#= link_to_unless(deplacement.valider,'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}){}
-              = link_to_if(current_user.admin?&&!deplacement.valider,'Validé', "deplacements/#{deplacement.id}/valider/", class: 'btn btn-warning'){}
+              = link_to_if(current_user.admin?&&!deplacement.valider,'Validé', "/deplacement/#{deplacement.id}/valider/", class: 'btn btn-warning'){}
             %td.text-center{:scope => "row"}
               - if deplacement.valider
                 .text-success=fa_icon "check"
@@ -48,7 +48,7 @@
             %td= deplacement.gasoil
             %td= deplacement.tauxkm
             %td= deplacement.nombrekm
-            %td= deplacement.tauxkm * deplacement.nombrekm unless deplacement.tauxkm == 0
+            %td= deplacement.tauxkm * deplacement.nombrekm if deplacement.tauxkm
             %td= deplacement.diver.info if deplacement.diver
             %td= deplacement.diver.montant if deplacement.diver
             %td= deplacement.total

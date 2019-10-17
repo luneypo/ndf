@@ -72,27 +72,32 @@ class DeplacementsController < ApplicationController
   end
 
   def create
-    @deplacement=Deplacement.create(deplacement_params)
+    @deplacement=Deplacement.new
     @deplacement.valider=false
-    @deplacement.peage=params[:peage]
-    @deplacement.parking=params[:parking]
-    tauxkm=Vehicule.find(params[:deplacement][:vehicule_id]).tauxkm
+    @deplacement.peage=request.parameters[:peage]
+    @deplacement.parking=request.parameters[:parking]
+    tauxkm=Vehicule.find(request.parameters[:deplacement].slice(:vehicule_id)[:vehicule_id]).tauxkm
     if tauxkm
       @deplacement.tauxkm=tauxkm
       @deplacement.gasoil=0
-      @deplacement.nombrekm=params[:nombrekm]
+      @deplacement.nombrekm=request.parameters[:nombrekm]
     else
-      @deplacement.gasoil=params[:gasoil]
+      @deplacement.gasoil=request.parameters[:gasoil]
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
+    @deplacement.update!(deplacement_params)
+    unless request.parameters[:diver].nil?
+      diver=@deplacement.build_diver(request.parameters[:diver].slice(:info, :montant))
+      diver.save
+    end
     if @deplacement.save
       flash[:notice] = "Déplacement crée !"
-      redirect_to user_path(current_user)
     else
       flash[:alert] = "Une erreur est survenue!"
-      render 'new'
     end
+    @deplacements=Deplacement.all
+    render 'show_my_deplacements'
   end
 
   def edit
@@ -100,27 +105,32 @@ class DeplacementsController < ApplicationController
   end
 
   def update
-    @deplacement=Deplacement.find(params[:id])
-    @deplacement.update(deplacement_params)
-    @deplacement.peage=params[:peage]
-    @deplacement.parking=params[:parking]
-    tauxkm=Vehicule.find(params[:deplacement[:vehicule_id]])
+    @deplacement=Deplacement.new
+    @deplacement.valider=false
+    @deplacement.peage=request.parameters[:peage]
+    @deplacement.parking=request.parameters[:parking]
+    tauxkm=Vehicule.find(request.parameters[:deplacement].slice(:vehicule_id)[:vehicule_id]).tauxkm
     if tauxkm
       @deplacement.tauxkm=tauxkm
       @deplacement.gasoil=0
-      @deplacement.nombrekm=params[:nombrekm]
+      @deplacement.nombrekm=request.parameters[:nombrekm]
     else
-      @deplacement.gasoil=params[:gasoil]
+      @deplacement.gasoil=request.parameters[:gasoil]
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
+    @deplacement.update!(deplacement_params)
+    unless request.parameters[:diver].nil?
+      diver=@deplacement.build_diver(request.parameters[:diver].slice(:info, :montant))
+      diver.save
+    end
     if @deplacement.save
-      flash[:notice] = "Déplacement modifiée !"
-      redirect_to user_path(current_user)
+      flash[:notice] = "Déplacement crée !"
     else
       flash[:alert] = "Une erreur est survenue!"
-      render 'edit'
     end
+    @deplacements=Deplacement.all
+    render 'show_my_deplacements'
   end
 
   def show_my_deplacements
@@ -145,7 +155,6 @@ class DeplacementsController < ApplicationController
 
   def fraisdivers
     @deplacement=Deplacement.new
-    @deplacement.build_diver
     respond_to do |f|
       f.html
       f.js

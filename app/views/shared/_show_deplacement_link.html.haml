@@ -4,5 +4,5 @@
   -when 'csv'
     = link_to 'CSV', csv_path(deplacement.export,format: :csv), class: 'btn btn-info'
   -else
-    = link_to_if(!deplacement.valider, 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info'){}
+    = link_to_if(!deplacement.valider, 'Modifié', edit_deplacement_path(deplacement), class: 'btn btn-info',remote:true){}
 

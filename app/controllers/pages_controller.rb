@@ -4,7 +4,6 @@ class PagesController < ApplicationController
   end
 
   def pdf
-
   end
 
   def csv
@@ -13,5 +12,9 @@ class PagesController < ApplicationController
       format.html
       format.csv { send_file arr_of_rows }
     end
+  end
+
+  def admin
+
   end
 end

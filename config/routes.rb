@@ -42,6 +42,6 @@ Rails.application.routes.draw do
   get 'deplacements/show/', to: 'deplacements#show_my_deplacements', as: 'show_my_deplacements'
 
 
-  get 'pdf/:id' => 'pages#pdf', as: 'pdf'
-  get 'csv/:id' => 'pages#csv', as: 'csv'
+  get '/deplacements/pdf/:id' => 'pages#pdf', as: 'pdf'
+  get '/deplacements/csv/:id' => 'pages#csv', as: 'csv'
 end

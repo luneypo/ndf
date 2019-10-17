@@ -28,6 +28,11 @@ class Deplacement < ApplicationRecord
   validates :title, presence: true
   validates :date, presence: true
   validates :vehicule, presence: true
+  validates :tauxkm, presence: true
+  validates :nombrekm, presence: true
+  validates :peage, presence: true
+  validates :parking, presence: true
+  validates :gasoil, presence: true
 
 
   def total
