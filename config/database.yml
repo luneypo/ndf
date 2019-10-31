@@ -7,11 +7,9 @@ default: &default
   password: d77sknpk
   socket: /var/run/mysqld/mysqld.sock
 
-development:
-  <<: *default
-  database: db_ndf_dev
-
 test:
   <<: *default
   database: db_ndf_test
 
+production:
+  url: <%= ENV['DATABASE_URL'] %>
