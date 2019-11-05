@@ -9,7 +9,7 @@
     - @users.each do |user|
       %tr{:id => "user_#{user.id}"}
         %td
-          = link_to 'Voir listes de deplacement', user_path(user), class: 'btn btn-primary'
+          = link_to 'Voir listes de deplacement', show_deplacements_path(user.id), class: 'btn btn-primary', remote: true
         %td
           = user.name
         %td

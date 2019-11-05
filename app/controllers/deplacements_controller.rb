@@ -101,20 +101,7 @@ class DeplacementsController < ApplicationController
   end
 
   def update
-    @deplacement=Deplacement.new
-    @deplacement.valider=false
-    @deplacement.peage=request.parameters[:peage]
-    @deplacement.parking=request.parameters[:parking]
-    tauxkm=Vehicule.find(request.parameters[:deplacement].slice(:vehicule_id)[:vehicule_id]).tauxkm
-    if tauxkm
-      @deplacement.tauxkm=tauxkm
-      @deplacement.gasoil=0
-      @deplacement.nombrekm=request.parameters[:nombrekm]
-    else
-      @deplacement.gasoil=request.parameters[:gasoil]
-      @deplacement.nombrekm=0
-      @deplacement.tauxkm=0
-    end
+    @deplacement=Deplacement.find(params[:id])
     @deplacement.update!(deplacement_params)
     unless request.parameters[:diver].nil?
       diver=@deplacement.build_diver(request.parameters[:diver].slice(:info, :montant))
@@ -131,6 +118,10 @@ class DeplacementsController < ApplicationController
 
   def show_my_deplacements
     @deplacements=Deplacement.where(user_id:current_user.id)
+  end
+
+  def show_deplacements
+    @deplacements=Deplacement.where(user_id:params[:id])
   end
 
   def destroy
@@ -170,7 +161,7 @@ class DeplacementsController < ApplicationController
   private
 
   def deplacement_params
-    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date, :diver_attributes=>[:id,:info,:montant])
+    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id,:gasoil, :peage, :parking, :date, :diver_attributes=>[:id,:info,:montant])
   end
 
 end

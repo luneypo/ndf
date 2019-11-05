@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   get 'deplacements/fraisdivers' => 'deplacements#fraisdivers'
   post 'deplacements/export/', to: 'deplacements#export', as: 'deplacements_export'
   get 'deplacements/show/', to: 'deplacements#show_my_deplacements', as: 'show_my_deplacements'
+  get 'deplacements/show/:id', to: 'deplacements#show_deplacements', as: 'show_deplacements'
 
 
   get '/deplacements/pdf/:id' => 'pages#pdf', as: 'pdf'
