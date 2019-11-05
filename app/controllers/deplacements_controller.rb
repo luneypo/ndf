@@ -21,8 +21,6 @@ class DeplacementsController < ApplicationController
                  lowquality: true,
                  zoom: 1,
                  dpi: 75
-
-
           pdf= WickedPdf.new.pdf_from_string(
               render_to_string('deplacements/export_pdf.html.haml', layout: 'layouts/pdf.html.haml')
           )
@@ -36,8 +34,6 @@ class DeplacementsController < ApplicationController
           File.open(save_path, 'wb') do |file|
             file << pdf
           end
-
-
         end
       end
 
@@ -48,7 +44,6 @@ class DeplacementsController < ApplicationController
         format.html
         format.csv { send_data @deplacements.to_csv, filename: "Export-compta-du-#{Date.today}-#{params[:deplacement_ids].first}.csv" }
       end
-
       save_path = Rails.root.join('public/export_csv',"Export-compta-#{params[:deplacement_ids].first}.csv")
       @deplacements.each do |deplacement|
         deplacement.export="#{params[:deplacement_ids].first}"
@@ -175,7 +170,7 @@ class DeplacementsController < ApplicationController
   private
 
   def deplacement_params
-    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date,:diver_attributes=>[:id,:info,:montant])
+    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date, :diver_attributes=>[:id,:info,:montant])
   end
 
 end
