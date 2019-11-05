@@ -32,11 +32,10 @@ Rails.application.routes.draw do
 
   #deplacement routes
 
-  resources :deplacements, except: [:show]
-
+  resources :deplacements, except: [:index,:show]
+  get 'deplacements/admin' => 'deplacements#index_admin'
   get 'deplacements/getvehicule' => 'deplacements#getvehicule'
-  get 'deplacements/:id/valider/' => 'deplacements#valider'
-  get 'users/deplacements/:id/valider/' => 'deplacements#valider'
+  get 'deplacement/:id/valider/' => 'deplacements#valider'
   get 'deplacements/fraisdivers' => 'deplacements#fraisdivers'
   post 'deplacements/export/', to: 'deplacements#export', as: 'deplacements_export'
   get 'deplacements/show/', to: 'deplacements#show_my_deplacements', as: 'show_my_deplacements'

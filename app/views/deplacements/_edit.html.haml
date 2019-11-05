@@ -1,0 +1,59 @@
+%h1.text-center Modifié deplacement n°#{@deplacement.id} de #{current_user.first_name} #{current_user.name}
+.container
+  = form_for @deplacement, url: deplacement_path do |f|
+    = render "users/shared/error_messages", resource: @deplacement
+    .container-fluid
+      .row
+        .field.form-group.col-sm-4
+          = f.label :title,class: 'form-label'
+          %br/
+          = f.text_field :title, autofocus: true, autocomplete: "title", class: "form-control"
+      .row
+        .col-sm-4
+          .field.form-group
+            = f.label :date
+            %br/
+            = f.date_select :date, autofocus: true, autocomplete: "date"
+
+        .col-sm-4
+
+          .field
+          = f.label :vehicule_id,class: 'form-label'
+          %br/
+          = f.collection_select :vehicule_id, Vehicule.all, :id, :immatriculation, {:include_blank => true}, { class: "form-control", :'data-remote' => true, :'data-url'=>"/deplacements/getvehicule" }
+          - @tuture=Vehicule.find(@deplacement.vehicule_id)
+          .field
+            - if @tuture.tauxkm?
+              = f.label :nombrekm
+              %br/
+              = f.number_field :nombrekm
+            - else
+              = f.label :gasoil
+              %br/
+              = f.number_field :gasoil
+          .field
+            = f.label :peage
+            %br/
+            = f.number_field :peage
+          .field
+            = f.label :parking
+            %br/
+            = f.number_field :parking
+          #kmform.form-group
+        .col-sm-4
+          - if @deplacement.diver
+            = f.fields_for :diver do |d|
+              .field.form-group
+                = d.label :info,class: 'col-form-label'
+                %br/
+                = d.text_field :info,class: "form-control"
+              .field.form-group
+                = d.label :montant,class: 'col-form-label'
+                %br/
+                = d.text_field :montant,class: "form-control"
+          - else
+            = link_to "frais divers supplementaire?", deplacements_fraisdivers_path, class:'btn btn-primary',remote: true, id:'btndivers'
+            #diverform.form-group
+      .row
+        .actions
+          = f.submit "Validé"

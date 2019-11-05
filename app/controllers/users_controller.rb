@@ -39,19 +39,18 @@ class UsersController < ApplicationController
 
   def destroy
     @user=User.find(params[:id])
-    unless current_user.id==@user.id
+    if current_user.id==@user.id
+      flash[:alert]= 'Vous ne pouvez pas vous supprimer.'
+      redirect_to users_path
+    else
       @user.destroy!
       flash[:notice]= 'User supprimé.'
       render 'destroy'
-    else
-      flash[:alert]= 'Vous ne pouvez pas vous supprimer.'
-      redirect_to users_path
     end
   end
 
   def import
     User.import(params[:file])
-
     redirect_to users_path, notice: 'Products imported.'
   end
 

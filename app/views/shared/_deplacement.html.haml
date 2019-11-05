@@ -2,7 +2,9 @@
   = form_tag( :remote => true )  do
     %table.table
       %thead
-        %th{:scope => "col"} Validé/supprimé
+        - if current_user.admin?
+          %th{:scope => "col"} Validé/supprimé
+
         %th{:scope => "col"} Validations
         %th{:scope => "col"} export
         %th{:scope => "col"} salarié
@@ -23,8 +25,7 @@
 
           %tr{:id => "deplacement_#{deplacement.id}"}
             %td
-              = link_to 'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, remote: true
-              -#= link_to_unless(deplacement.valider,'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}){}
+              = link_to_if(!deplacement.valider,'Supprimer', deplacement_path(deplacement), class: 'btn btn-danger', method: :delete, remote:true, data: {confirm: 'Are you sure?'}){}
               = link_to_if(current_user.admin?&&!deplacement.valider,'Validé', "/deplacement/#{deplacement.id}/valider/", class: 'btn btn-warning'){}
             %td.text-center{:scope => "row"}
               - if deplacement.valider
@@ -32,14 +33,13 @@
               - else
                 .text-danger=fa_icon "times"
             %td
-              = check_box_tag "deplacement_ids[]", deplacement.id, false
-              -#- if deplacement.valider
-              -#  - unless deplacement.exporté
-              -#    = check_box_tag "deplacement_ids[]", deplacement.id, false
-              -#  -else
-              -#    .text-success= fa_icon "check-square"
-              -#- else
-              -#  .text-danger.font-italic= 'en attente'
+              - if deplacement.valider
+                - unless deplacement.export
+                  = check_box_tag "deplacement_ids[]", deplacement.id, false
+                -else
+                  .text-success= fa_icon "check-square"
+              - else
+                .text-danger.font-italic= 'en attente'
             %td= deplacement.user.name
             %td= deplacement.title
             %td= deplacement.date

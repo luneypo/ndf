@@ -1,8 +1,8 @@
 class DeplacementsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: [:destroy,:index]
+  before_action :authenticate_admin!, only: [:destroy,:index_admin]
 
-  def index
+  def index_admin
     @deplacements=Deplacement.all
   end
 
@@ -14,7 +14,7 @@ class DeplacementsController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render pdf: "Export de deplacmeents",
+          render pdf: "Export de deplacements",
                  page_size: 'A4',
                  template: "deplacements/export_pdf.html.haml",
                  layout: "pdf.html",
@@ -86,6 +86,7 @@ class DeplacementsController < ApplicationController
       @deplacement.nombrekm=0
       @deplacement.tauxkm=0
     end
+    @deplacement.user_id=current_user.id
     @deplacement.update!(deplacement_params)
     unless request.parameters[:diver].nil?
       diver=@deplacement.build_diver(request.parameters[:diver].slice(:info, :montant))
@@ -96,7 +97,7 @@ class DeplacementsController < ApplicationController
     else
       flash[:alert] = "Une erreur est survenue!"
     end
-    @deplacements=Deplacement.all
+    @deplacements=Deplacement.where(user_id:current_user.id)
     render 'show_my_deplacements'
   end
 
@@ -129,7 +130,7 @@ class DeplacementsController < ApplicationController
     else
       flash[:alert] = "Une erreur est survenue!"
     end
-    @deplacements=Deplacement.all
+    @deplacements=Deplacement.where(user_id:current_user.id)
     render 'show_my_deplacements'
   end
 
@@ -174,7 +175,7 @@ class DeplacementsController < ApplicationController
   private
 
   def deplacement_params
-    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date ,:user_id,:diver_attributes=>[:id,:info,:montant])
+    params.require(:deplacement).permit(:title, :tauxkm, :vehicule_id, :date,:diver_attributes=>[:id,:info,:montant])
   end
 
 end
