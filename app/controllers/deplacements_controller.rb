@@ -93,7 +93,7 @@ class DeplacementsController < ApplicationController
       flash[:alert] = "Une erreur est survenue!"
     end
     @deplacements=Deplacement.where(user_id:current_user.id)
-    render 'show_my_deplacements'
+    redirect_back(fallback_location: deplacements_path)
   end
 
   def edit
@@ -113,7 +113,7 @@ class DeplacementsController < ApplicationController
       flash[:alert] = "Une erreur est survenue!"
     end
     @deplacements=Deplacement.where(user_id:current_user.id)
-    render 'show_my_deplacements'
+    redirect_back(fallback_location: deplacements_path)
   end
 
   def show_my_deplacements

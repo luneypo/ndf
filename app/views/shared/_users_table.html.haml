@@ -19,5 +19,5 @@
         %td
           = user.email
         %td.d-flex.flex-row
-          = link_to "Modifié", edit_user_path(user), class: "btn btn-info", remote: true
+          = link_to "Edit", edit_user_path(user), class: "btn btn-info", remote: true
           = link_to 'Supprimer', user_path(user), class: 'btn btn-danger', method: :delete, remote: true, data: {confirm: 'Are you sure?'}

@@ -22,7 +22,7 @@
 
 class User < ApplicationRecord
 
-  has_many :deplacements
+  has_many :deplacements, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # , :lockable, :timeoutable, :trackable and :omniauthable
