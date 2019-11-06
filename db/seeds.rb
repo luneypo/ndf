@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create(name:'brian',first_name:'brian',login:'poney',email:'q@l.f',password:'secret',admin:true)
-User.create(name:'yen',first_name:'yen',login:'yenyen',email:'test@test.test',password:'secret',admin:false)
+User.create(name:'Lacouture',first_name:'brian',login:'admin',email:'q@l.f',password:'secret',admin:true)
+User.create(name:'test',first_name:'user',login:'user',email:'test@test.test',password:'secret',admin:false)
 Vehicule.create(immatriculation:'456-CON-789',tauxkm:'')
 Vehicule.create(immatriculation:'123-BOF-321',tauxkm:5.2)
